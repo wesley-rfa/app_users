@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use App\Enum\ErrorCodeEnum;
 use Illuminate\Http\Request;
+use Exception;
 
 class UserApiController extends Controller
 {
@@ -48,8 +49,20 @@ class UserApiController extends Controller
             );
             $error['exceptionMessage'] = $e->getMessage();
             return $this->response->responseErrorEnveloper($request, ErrorCodeEnum::NotFoundModel, $error);
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Undefined error on show',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper($request, ErrorCodeEnum::InternalServerError, $error);
         }
-        
+
         return response()->json($user);
     }
 

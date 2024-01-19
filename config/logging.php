@@ -65,6 +65,19 @@ return [
             'days' => 14,
         ],
 
+        'app' => [
+            'driver' => 'stack',
+            'channels' => ['dailyApp'],
+            'ignore_exceptions' => true,
+        ],
+
+        'dailyApp' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/app-error.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
