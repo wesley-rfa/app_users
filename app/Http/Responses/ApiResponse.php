@@ -3,6 +3,7 @@
 namespace App\Http\Responses;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 use stdClass;
 use Illuminate\Support\Facades\Log;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class ApiResponse
 {
     public function responseEnveloper(
-        array|Model $data = [],
+        array|Model|Collection $data = [],
         array $errorList = [],
         bool $status = true,
         ?int $errorCode = null,
