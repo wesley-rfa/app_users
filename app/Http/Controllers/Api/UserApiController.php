@@ -24,13 +24,13 @@ class UserApiController extends Controller
     public function index()
     {
         $users = User::all();
-        return response()->json($users);
+        return $this->response->responseEnveloper(data: $users);
     }
 
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->validated());
-        return response()->json($user, Response::HTTP_CREATED);
+        return $this->response->responseEnveloper(data: $user, statusCode: Response::HTTP_CREATED);
     }
 
     public function show(Request $request, string $id)
@@ -48,7 +48,7 @@ class UserApiController extends Controller
                 ]
             );
             $error['exceptionMessage'] = $e->getMessage();
-            return $this->response->responseErrorEnveloper($request, ErrorCodeEnum::NotFoundModel, $error);
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::NotFoundModel, errors: $error);
         } catch (Exception $e) {
             Log::channel('controllers')->warning(
                 'UserApiController - Undefined error on show',
@@ -60,10 +60,10 @@ class UserApiController extends Controller
                 ]
             );
             $error['exceptionMessage'] = $e->getMessage();
-            return $this->response->responseErrorEnveloper($request, ErrorCodeEnum::InternalServerError, $error);
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::InternalServerError, errors: $error);
         }
 
-        return response()->json($user);
+        return $this->response->responseEnveloper(data: $user);
     }
 
     public function update(UpdateUserRequest $request, string $id)
@@ -71,7 +71,7 @@ class UserApiController extends Controller
         $user = User::find($id);
         $user->update($request->all());
 
-        return response()->json($user);
+        return $this->response->responseEnveloper(data: $user);
     }
 
     public function destroy(string $id)
@@ -79,6 +79,6 @@ class UserApiController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        return $this->response->responseEnveloper(data: [], statusCode: Response::HTTP_NO_CONTENT);
     }
 }
