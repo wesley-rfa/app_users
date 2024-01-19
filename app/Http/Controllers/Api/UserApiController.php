@@ -11,20 +11,23 @@ use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use App\Enum\ErrorCodeEnum;
+use App\Repositories\RepositoryInterface;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Exception;
 
 class UserApiController extends Controller
 {
     public function __construct(
-        private $response = new ApiResponse()
+        private $response = new ApiResponse(),
+        private RepositoryInterface $repository = new UserRepository()
     ) {
     }
 
     public function index(Request $request)
     {
         try {
-            $users = User::all();
+            $users = $this->repository->getAll();
             return $this->response->responseEnveloper(data: $users);
         } catch (Exception $e) {
             Log::channel('controllers')->warning(
@@ -44,7 +47,7 @@ class UserApiController extends Controller
     public function store(StoreUserRequest $request)
     {
         try {
-            $user = User::create($request->validated());
+            $user = $this->repository->create(data: $request->validated());
             return $this->response->responseEnveloper(data: $user, statusCode: Response::HTTP_CREATED);
         } catch (Exception $e) {
             Log::channel('controllers')->warning(
@@ -64,7 +67,7 @@ class UserApiController extends Controller
     public function show(Request $request, string $id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = $this->repository->getOne(id: $id);
             return $this->response->responseEnveloper(data: $user);
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
@@ -96,8 +99,7 @@ class UserApiController extends Controller
     public function update(UpdateUserRequest $request, string $id)
     {
         try {
-            $user = User::findOrFail($id);
-            $user->update($request->all());
+            $user = $this->repository->update(data: $request->all(), id: $id);
             return $this->response->responseEnveloper(data: $user);
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
@@ -129,8 +131,7 @@ class UserApiController extends Controller
     public function destroy(Request $request, string $id)
     {
         try {
-            $user = User::findOrFail($id);
-            $user->delete();
+            $this->repository->delete(id: $id);
             return $this->response->responseEnveloper(data: [], statusCode: Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(

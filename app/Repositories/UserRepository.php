@@ -28,7 +28,9 @@ class UserRepository implements RepositoryInterface
 
     public function update(array $data, string $id)
     {
-        return $this->model->findOrFail($id)->update($data);
+        $user =$this->model->findOrFail($id);
+        $user->update($data);
+        return $user->fresh();
     }
 
     public function delete(string $id)
