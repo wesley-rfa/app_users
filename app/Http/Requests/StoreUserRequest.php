@@ -34,8 +34,8 @@ class StoreUserRequest extends FormRequest
             'password.required' => 'A senha é obrigatória',
             'password.min' => 'A senha deve ter no mínimo 6 caracteres',
             'password.max' => 'A senha deve ter no máximo 20 caracteres',
-            'passwordConfirmation.required' => 'A confirmação da senha é obrigatória',
-            'passwordConfirmation.same' => 'A confirmação da senha deve ser igual a senha informada'
+            'password_confirmation.required' => 'A confirmação da senha é obrigatória',
+            'password_confirmation.same' => 'A confirmação da senha deve ser igual a senha informada'
         ];
     }
 }

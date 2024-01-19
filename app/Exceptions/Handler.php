@@ -2,6 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Http\Responses\ApiResponse;
+use App\Enum\errorCodeEnum;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -26,5 +29,11 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    protected function invalidJson($request, ValidationException $exception)
+    {
+        $apiResponse = new ApiResponse();
+        return $apiResponse->responseErrorEnveloper($request, errorCodeEnum::ValidationError, $exception->errors());
     }
 }
