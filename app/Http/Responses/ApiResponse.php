@@ -2,17 +2,20 @@
 
 namespace App\Http\Responses;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 use stdClass;
 use Illuminate\Support\Facades\Log;
 
 class ApiResponse
 {
     public function responseEnveloper(
-        array $data = [],
+        array|Model $data = [],
         array $errorList = [],
         bool $status = true,
         ?int $errorCode = null,
-        string $errorMessage = "Generic Error"
+        string $errorMessage = "Generic Error",
+        int $statusCode = Response::HTTP_OK
 
     ) {
         $data       = $data ?? null;
@@ -26,8 +29,8 @@ class ApiResponse
             $response->success = $status;
             if ($data) {
                 $meta->apiVersion = env("API_VERSION");
-                $response->meta = $meta;
                 $response->data  = $data;
+                $response->meta = $meta;
             }
         } else {
             $error->errorCode = $errorCode;
@@ -41,7 +44,7 @@ class ApiResponse
             $response->meta = $meta;
         }
 
-        return json_encode($response);
+        return response()->json($response, $statusCode);
     }
 
     public function responseErrorEnveloper($request, $errorCodeEnum, array $errors = [])

@@ -18,7 +18,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|min:3|max:50',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|max:20',
-            'password_confirmation' => 'required|same:password'
+            'passwordConfirmation' => 'required|same:password'
         ];
     }
 
@@ -34,8 +34,8 @@ class StoreUserRequest extends FormRequest
             'password.required' => 'A senha é obrigatória',
             'password.min' => 'A senha deve ter no mínimo 6 caracteres',
             'password.max' => 'A senha deve ter no máximo 20 caracteres',
-            'password_confirmation.required' => 'A confirmação da senha é obrigatória',
-            'password_confirmation.same' => 'A confirmação da senha deve ser igual a senha informada'
+            'passwordConfirmation.required' => 'A confirmação da senha é obrigatória',
+            'passwordConfirmation.same' => 'A confirmação da senha deve ser igual a senha informada'
         ];
     }
 }
