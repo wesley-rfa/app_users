@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use App\Enum\ErrorCodeEnum;
+use App\Http\Resources\UserResource;
 use App\Repositories\RepositoryInterface;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class UserApiController extends Controller
     {
         try {
             $users = $this->repository->getAll();
-            return $this->response->responseEnveloper(data: $users);
+            return $this->response->responseEnveloper(data: UserResource::collection($users));
         } catch (Exception $e) {
             Log::channel('controllers')->warning(
                 'UserApiController - Undefined error on index',
@@ -48,7 +49,7 @@ class UserApiController extends Controller
     {
         try {
             $user = $this->repository->create(data: $request->validated());
-            return $this->response->responseEnveloper(data: $user, statusCode: Response::HTTP_CREATED);
+            return $this->response->responseEnveloper(data: new UserResource($user), statusCode: Response::HTTP_CREATED);
         } catch (Exception $e) {
             Log::channel('controllers')->warning(
                 'UserApiController - Undefined error on store',
@@ -68,7 +69,7 @@ class UserApiController extends Controller
     {
         try {
             $user = $this->repository->getOne(id: $id);
-            return $this->response->responseEnveloper(data: $user);
+            return $this->response->responseEnveloper(data: new UserResource($user));
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
                 'UserApiController - Not found error on show',
@@ -100,7 +101,7 @@ class UserApiController extends Controller
     {
         try {
             $user = $this->repository->update(data: $request->all(), id: $id);
-            return $this->response->responseEnveloper(data: $user);
+            return $this->response->responseEnveloper(data: new UserResource($user));
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
                 'UserApiController - Not found error on update',
