@@ -52,6 +52,19 @@ return [
     */
 
     'channels' => [
+        'controllers' => [
+            'driver' => 'stack',
+            'channels' => ['dailyController'],
+            'ignore_exceptions' => true,
+        ],
+
+        'dailyController' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/controllers-error.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
@@ -89,7 +102,7 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
-                'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://' . env('PAPERTRAIL_URL') . ':' . env('PAPERTRAIL_PORT'),
             ],
             'processors' => [PsrLogMessageProcessor::class],
         ],

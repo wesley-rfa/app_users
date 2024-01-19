@@ -7,6 +7,7 @@ use App\Enum\errorCodeEnum;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -35,5 +36,15 @@ class Handler extends ExceptionHandler
     {
         $apiResponse = new ApiResponse();
         return $apiResponse->responseErrorEnveloper($request, errorCodeEnum::ValidationError, $exception->errors());
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ModelNotFoundException) {
+            $apiResponse = new ApiResponse();
+            return $apiResponse->responseErrorEnveloper($request, ErrorCodeEnum::NotFoundModel);
+        }
+
+        return parent::render($request, $exception);
     }
 }
