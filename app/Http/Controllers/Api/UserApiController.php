@@ -21,22 +21,51 @@ class UserApiController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return $this->response->responseEnveloper(data: $users);
+        try {
+            $users = User::all();
+            return $this->response->responseEnveloper(data: $users);
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Undefined error on index',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::InternalServerError, errors: $error);
+        }
     }
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->validated());
-        return $this->response->responseEnveloper(data: $user, statusCode: Response::HTTP_CREATED);
+        try {
+            $user = User::create($request->validated());
+            return $this->response->responseEnveloper(data: $user, statusCode: Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Undefined error on store',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::InternalServerError, errors: $error);
+        }
     }
 
     public function show(Request $request, string $id)
     {
         try {
             $user = User::findOrFail($id);
+            return $this->response->responseEnveloper(data: $user);
         } catch (ModelNotFoundException $e) {
             Log::channel('controllers')->warning(
                 'UserApiController - Not found error on show',
@@ -62,23 +91,71 @@ class UserApiController extends Controller
             $error['exceptionMessage'] = $e->getMessage();
             return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::InternalServerError, errors: $error);
         }
-
-        return $this->response->responseEnveloper(data: $user);
     }
 
     public function update(UpdateUserRequest $request, string $id)
     {
-        $user = User::find($id);
-        $user->update($request->all());
-
-        return $this->response->responseEnveloper(data: $user);
+        try {
+            $user = User::findOrFail($id);
+            $user->update($request->all());
+            return $this->response->responseEnveloper(data: $user);
+        } catch (ModelNotFoundException $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Not found error on update',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::NotFoundModel, errors: $error);
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Undefined error on update',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::InternalServerError, errors: $error);
+        }
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        $user = User::find($id);
-        $user->delete();
-
-        return $this->response->responseEnveloper(data: [], statusCode: Response::HTTP_NO_CONTENT);
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return $this->response->responseEnveloper(data: [], statusCode: Response::HTTP_NO_CONTENT);
+        } catch (ModelNotFoundException $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Not found error on destroy',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::NotFoundModel, errors: $error);
+        } catch (Exception $e) {
+            Log::channel('controllers')->warning(
+                'UserApiController - Undefined error on destroy',
+                [
+                    'messageError' => $e->getMessage(),
+                    'codeError' => $e->getCode(),
+                    'lineError' => $e->getLine(),
+                    'fileError' => $e->getFile()
+                ]
+            );
+            $error['exceptionMessage'] = $e->getMessage();
+            return $this->response->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::InternalServerError, errors: $error);
+        }
     }
 }

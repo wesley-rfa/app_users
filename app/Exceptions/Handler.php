@@ -42,7 +42,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ModelNotFoundException) {
             $apiResponse = new ApiResponse();
-            return $apiResponse->responseErrorEnveloper($request, ErrorCodeEnum::NotFoundModel);
+            return $apiResponse->responseErrorEnveloper(request: $request, errorCodeEnum: ErrorCodeEnum::NotFoundModel);
         }
 
         return parent::render($request, $exception);
