@@ -30,7 +30,7 @@
                         <div class="toast-header">
                             <strong class="mr-auto">Aviso</strong>
                         </div>
-                        <div class="toast-body" id="toast_body_message">
+                        <div class="toast-body" id="toast-body-message">
                         </div>
                     </div>
                 </div>

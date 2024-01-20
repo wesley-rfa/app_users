@@ -14,12 +14,12 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="tbody_list_users">
+            <tbody id="tbody-list-users">
             </tbody>
         </table>
     </div>
     <div class="col-12 text-center">
-        <h6>Total: <span id="span_count_users"></span></h6>
+        <h6>Total: <span id="span-count-users"></span></h6>
     </div>
 @endsection
 
@@ -35,7 +35,7 @@
                     if (response.success) {
                         if (response.data.length > 0) {
                             $.each(response.data, function(index, user) {
-                                let showUserUrl = '{{ route('users.edit', ':id') }}';
+                                let showUserUrl = '{{ route('users.show', ':id') }}';
                                 let editUserUrl = '{{ route('users.edit', ':id') }}';
 
                                 showUserUrl = showUserUrl.replace(':id', user.id);
@@ -59,14 +59,14 @@
                         tbody = `<tr>
                                     <td colspan="100">Erro.</td>
                                 </tr>`;
-                        $('#toast_body_message').html('Erro ao buscar lista de usuários.');
+                        $('#toast-body-message').html('Erro ao buscar lista de usuários.');
                         $('.toast').toast('show')
                     }
-                    $('#tbody_list_users').html(tbody);
-                    $('#span_count_users').html(response.data.length);
+                    $('#tbody-list-users').html(tbody);
+                    $('#span-count-users').html(response.data.length);
                 },
                 error: (error) => {
-                    $('#toast_body_message').html('Erro ao buscar lista de usuários.');
+                    $('#toast-body-message').html('Erro ao buscar lista de usuários.');
                     $('.toast').toast('show')
                 }
             });

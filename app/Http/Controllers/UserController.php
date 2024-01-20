@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function create()
     {
-
+        return view('app.user.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-
+        return view('app.user.show');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-
+        return view('app.user.edit');
     }
 
     /**
