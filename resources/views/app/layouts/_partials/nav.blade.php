@@ -24,6 +24,16 @@
         <div class="col p-4 content">
             <div class="row sub-content">
                 @yield('content')
+
+                <div aria-live="polite" data-delay="5000" aria-atomic="true" style="position: relative; min-height: 200px;">
+                    <div class="toast" style="position: absolute; top: 0; right: 0;">
+                        <div class="toast-header">
+                            <strong class="mr-auto">Aviso</strong>
+                        </div>
+                        <div class="toast-body" id="toast_body_message">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
