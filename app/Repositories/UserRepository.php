@@ -13,7 +13,7 @@ class UserRepository implements RepositoryInterface
 
     public function getAll()
     {
-        return $this->model->get();
+        return $this->model->orderBy('name')->get();
     }
 
     public function getOne(string $id)
