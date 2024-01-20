@@ -56,7 +56,7 @@
                     },
                     error: (xhr, ajaxOptions, thrownError) => {
                         $('#toast-body-message').html(JSON.parse(xhr.responseText).data.errorMessage);
-                        $('.toast').toast('show')
+                        $('.toast').toast('show');
                     }
                 });
             })

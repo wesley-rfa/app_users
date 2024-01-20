@@ -56,14 +56,20 @@
                         email: $('[name="email"]').val(),
                     }),
                     success: (response) => {
-                        window.location.href = "{{ route('users.index') }}";
+                        if (response.success) {
+                            window.location.href = "{{ route('users.index') }}";
+                        } else {
+                            $('#toast-body-message').html("Erro ao tentar editar usuário.");
+                            $('.toast').toast('show');
+                        }
                     },
                     error: (xhr, ajaxOptions, thrownError) => {
                         let responseError = JSON.parse(xhr.responseText);
                         if (responseError.data.errorCode == 1) {
                             if (!(responseError.data.errorList.name === undefined)) {
                                 let nameErrors = "";
-                                $.each(responseError.data.errorList.name, function (index, error) {
+                                $.each(responseError.data.errorList.name, function(index,
+                                error) {
                                     nameErrors += `${error}<br>`;
                                 })
                                 $('#invalid-feedback-name').html(nameErrors);
@@ -73,7 +79,8 @@
 
                             if (!(responseError.data.errorList.email === undefined)) {
                                 let emailErrors = "";
-                                $.each(responseError.data.errorList.email, function (index, error) {
+                                $.each(responseError.data.errorList.email, function(index,
+                                    error) {
                                     emailErrors += `${error}<br>`;
                                 })
                                 $('#invalid-feedback-email').html(emailErrors);
@@ -81,9 +88,10 @@
                                 $('#invalid-feedback-email').html('');
                             }
                         }
-                        
-                        $('#toast-body-message').html(JSON.parse(xhr.responseText).data.errorMessage);
-                        $('.toast').toast('show')
+
+                        $('#toast-body-message').html(JSON.parse(xhr.responseText).data
+                            .errorMessage);
+                        $('.toast').toast('show');
                     }
                 });
             })
