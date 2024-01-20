@@ -3,6 +3,7 @@
 @section('content')
     <div class="col-12">
         <h4>Lista de usuários</h4>
+        <hr>
     </div>
 
     <div class="col-12">
@@ -27,7 +28,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $.ajax({
-                method: "GET",
+                type: "GET",
                 contentType: 'application/json',
                 url: "/api/users",
                 success: (response) => {
@@ -65,7 +66,7 @@
                     $('#tbody-list-users').html(tbody);
                     $('#span-count-users').html(response.data.length);
                 },
-                error: (error) => {
+                error: (xhr, ajaxOptions, thrownError) => {
                     $('#toast-body-message').html('Erro ao buscar lista de usuários.');
                     $('.toast').toast('show')
                 }

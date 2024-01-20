@@ -3,6 +3,7 @@
 @section('content')
     <div class="col-12 m-0 p-0">
         <h4>Editar Usuário</h4>
+        <hr>
     </div>
 
     <form class="row g-3 needs-validation" method="POST">
