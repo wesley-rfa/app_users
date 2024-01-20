@@ -35,7 +35,7 @@
                         $('#span-user-email').html(response.data.email);
                         $('#span-user-created-at').html(response.data.createdAt);
                     } else {
-                        $('#toast-body-message').html('Erro ao buscar tentar excluir usuário.');
+                        $('#toast-body-message').html('Erro ao buscar usuário.');
                         $('.toast').toast('show')
                     }
                 },
