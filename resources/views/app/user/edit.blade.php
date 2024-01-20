@@ -18,7 +18,7 @@
             <div id="invalid-feedback-email" class="invalid_feedback"></div>
         </div>
         <div class="col-10 text-center">
-            <button type="submit" class="btn btn_primary">Salvar</button>
+            <button type="submit" class="btn btn-sm btn_primary col-2">Salvar</button>
         </div>
     </form>
 @endsection

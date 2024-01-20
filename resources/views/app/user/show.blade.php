@@ -13,13 +13,11 @@
             <div><strong>Criado em:</strong> <span id="span-user-created-at"></div>
         </div>
     </div>
-
-    <form id="form-delete-user" class="row g-3 needs-validation">
-        @method('DELETE')
-        <div class="col-12 text-center">
-            <button type="submit" class="btn btn_primary">Excluir usuário</button>
-        </div>
-    </form>
+    
+    <div class="d-flex flex-row bd-highlight mt-5 justify-content-center">
+        <a class="btn btn-sm btn_primary col-2 mx-3" href="{{ route('users.index') }}">Voltar</a>
+        <button id="button-delete-user" class="btn btn-sm btn_primary col-2">Excluir usuário</button>
+      </div>
 @endsection
 
 @section('script')
@@ -45,8 +43,7 @@
                 }
             });
 
-            $('#form-delete-user').submit((e) => {
-                e.preventDefault();
+            $('#button-delete-user').click((e) => {
                 $.ajax({
                     type: "DELETE",
                     contentType: 'application/json',

@@ -1,4 +1,13 @@
 <div class="container-fluid">
+    <div aria-live="polite" data-delay="5000" aria-atomic="true" style="position: relative;">
+        <div class="toast" style="position: absolute; top: 15px; right: 0;">
+            <div class="toast-header">
+                <strong class="mr-auto">Aviso</strong>
+            </div>
+            <div class="toast-body" id="toast-body-message">
+            </div>
+        </div>
+    </div>
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 menu">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -24,16 +33,6 @@
         <div class="col p-4 content">
             <div class="row sub-content">
                 @yield('content')
-
-                <div aria-live="polite" data-delay="5000" aria-atomic="true" style="position: relative; min-height: 200px;">
-                    <div class="toast" style="position: absolute; top: 0; right: 0;">
-                        <div class="toast-header">
-                            <strong class="mr-auto">Aviso</strong>
-                        </div>
-                        <div class="toast-body" id="toast-body-message">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
