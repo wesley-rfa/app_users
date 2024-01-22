@@ -8,22 +8,22 @@
 
     <form id="form-store-user" class="row g-3 needs-validation" method="POST">
         <div class="col-md-5 mb-3">
-            <label class="form-label">Nome</label>
+            <label class="form-label">Nome*</label>
             <input type="text" class="form-control form-control-sm" name="name">
             <div id="invalid-feedback-name" class="invalid_feedback"></div>
         </div>
         <div class="col-md-5 mb-3">
-            <label class="form-label">E-mail</label>
+            <label class="form-label">E-mail*</label>
             <input type="text" class="form-control form-control-sm" name="email">
             <div id="invalid-feedback-email" class="invalid_feedback"></div>
         </div>
         <div class="col-md-5 mb-3">
-            <label class="form-label">Senha</label>
+            <label class="form-label">Senha*</label>
             <input type="password" class="form-control form-control-sm" name="password">
             <div id="invalid-feedback-password" class="invalid_feedback"></div>
         </div>
         <div class="col-md-5 mb-3">
-            <label class="form-label">Confirmação de Senha</label>
+            <label class="form-label">Confirmação de Senha*</label>
             <input type="password" class="form-control form-control-sm" name="password_confirmation">
             <div id="invalid-feedback-password-confirmation" class="invalid_feedback"></div>
         </div>
