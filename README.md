@@ -7,7 +7,7 @@ O projeto envolve operações de CRUD de usuários em laravel. Para isso, criou-
 **1** - Faça um clone do repositório para sua máquina
 
     git clone https://github.com/wesley-rfa/app_users.git
-**2** - Execute o comando expo start
+**2** - Execute o comando
 
     php artisan serve
     
@@ -19,7 +19,7 @@ Seguindo o que recomenda a documentação do *framework*, foi seguido a padroniz
 ### Repository Pattern
 Utilização do *repository pattern* para separação da lógica e melhor distribuição de responsabilidades, promovendo um isolamento da camada de acesso aos dados. Portanto, todas as operações sobre os usuários estão em seu respectivo repositório.
 ### Form Request
-A fim de aplicar as melhores práticas de validações do laravel, foi utilizado a classe que encapsula a lógica de validação e autorização do *framework*, o *form request*.
+A fim de aplicar as melhores práticas de validações do laravel, foi implementado classes que encapsulam a lógica de validação e autorização usando o *form request*.
 
 Nesse contexto, tem-se uma classe para validação da criação de usuário (*store method*) e outra para atualização do usuário (*update method*). Ambas possuem a padronização de mensagens de erros de validação.
 
@@ -33,6 +33,7 @@ Implementação de uma classe responsável por padronizar o *response* da API co
 **3** - Campo  **meta** que contêm o campo **apiVersion** com a versão atual da API.
 
 Além disso, o *status code* retornado segue o padrão do HTTP.
+![](public/examples/apiResponse.PNG)
 
 ### Tratamento de erros e gravação de Logs
 Para melhor informar ao *client* os erros ocorridos, a API segue a seguinte padronização, que é retornada dentro do campo **data**.
@@ -45,6 +46,8 @@ Para melhor informar ao *client* os erros ocorridos, a API segue a seguinte padr
 
 Além disso, a gravação de log é feita. Para isso, foram criados canais de logs para os controladores e para o sistema como um todo. Dessa forma, é possível ter a rastreabilidade dos erros.
 
+![](public/examples/apiErrorResponse.PNG)
+
 ## Migrations e Model
 Feita modificação na migration de *users*, gerada ao iniciar um projeto em laravel, adicionando o *softDeletes* para a criação da coluna *deleted_at*, sendo possível a exclusão lógica dos usuários. 
 
@@ -55,8 +58,7 @@ Para o *front-end* foi utilizado o *blade* nas *views* e explorados tópicos int
 
 As requisições a *API* foram feitas via **JavaScript** através do **AJAX**, utilizando o **JQuery**.
 
-Além disso, para melhor estilização o **Bootstrap** também foi usado.
-
+Além disso, o **Bootstrap** também foi usado.
 
 ## Testes
 Foi utilizado o PHPUnit, que já vem integrado ao laravel. No total tem-se 10 testes (4 unitários e 6 de integração).
