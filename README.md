@@ -80,9 +80,15 @@ Testes realizados sobre a API desenvolvida
 Seguem imagens da interface desenvolvida. Tem-se um menu de navegação lateral fixo.
 
 ## Listagem
-Listagem com ações de visualização, edição e exclusão.
+Listagem com ações de ver detalhes, editar e excluir.
 
 ![](public/examples/listUsers.PNG)
+
+## Detalhes do usuário
+![](public/examples/showUsers.PNG)
+
+## Edição do usuário
+![](public/examples/editUsers.PNG)
 
 ## Validação na criação de usuário
 
