@@ -1,66 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# App Users
+![](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)![](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)![](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)![](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)  
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+O projeto envolve operações de CRUD de usuários em laravel. Para isso, criou-se uma API REST, com as melhores práticas, bem como templates *blade* no *front-end* para consumir a mesma.
 
-## About Laravel
+## Como usar
+**1** - Faça um clone do repositório para sua máquina
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    git clone https://github.com/wesley-rfa/app_users.git
+**2** - Execute o comando expo start
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    php artisan serve
+    
+## API REST
+Foi desenvolvida uma API REST seguindo as melhores práticas do laravel no contexto do projeto. Seguem alguns recursos utilizados:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### ApiResource
+Seguindo o que recomenda a documentação, foi seguido a padronização de métodos de recursos nos controladores (*index*, *show*, *store*, *update* e *destroy*), por isso a rota de api foi declarada também utilizando esse recurso.
+### Repository Pattern
+Utilização do *repository pattern* para separação da lógica e melhor distribuição de responsabilidades, promovendo um isolamento da camada de acesso aos dados. Portanto, todas as operações sobre os usuários estão em seu respectivo repositório.
+### Form Request
+A fim de aplicar as melhores práticas de validações do laravel, foi utilizado a classe que encapsula a lógica de validação e autorização do *framework*, o *form request*.
 
-## Learning Laravel
+Nesse contexto, tem-se uma para validação da criação de usuário (*store method*) e outra para atualização do usuário (*update method*). Ambas possuem a padronização de mensagens de erros de validação.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Padronização do *Response*
+Implementação de uma classe responsável por padronizar o *response* da API com a seguinte estrutura:
+**1** - Campo  **success** é um booleano que indica ao *client* se a operação obteve sucesso ou não.
+**2** - Campo  **data** que contêm os dados retornados pela API.
+**2** - Campo  **meta** que contêm o campo **apiVersion** com a versão atual da API.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Além disso, o *status code* retornado segue o padrão do HTTP.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Tratamento de erros e gravação de Logs
+Para melhor informar ao *client* os erros ocorridos, a API segue a seguinte padronização, que é retornada dentro do campo **data**.
 
-## Laravel Sponsors
+**1** - Campo  **errorCode**: Código de erro padronizado pela aplicação através de um *Enum*. É um número inteiro que serve para o *front-end* entender qual tipo de erro retornado.
+**2** - Campo  **errorMessage**: Contêm a mensagem principal a ser exibida para o usuário em tela.
+**3** - Campo  **errorList**: Lista com todos os erros encontrados. No caso de erro de validação, é aqui que serão retornados as mensagens de cada campo.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Além disso, a gravação de log é feita. Para isso, foram criados canais de logs para os controladores e para o sistema como um todo. Dessa forma, é possível ter a rastreabilidade dos erros.
 
-### Premium Partners
+## Migrations e Model
+Feita modificação na migration de *users*, gerada ao iniciar um projeto em laravel, adicionando o *softDeletes* para a criação da coluna *deleted_at*, sendo possível a exclusão lógica dos usuários. 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Dessa forma, a model *User*, também gerada de forma padrão ao iniciar o projeto, foi modificada.
 
-## Contributing
+## Front-end
+Para o *front-end* foi utilizado o *blade* nas *views* e explorados tópicos interessantes nesse contexto, como o reaproveitamento de código *html* ao usar as diretivas *@yield*, *@include*, *@extends*, *@section*.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+As requisições a *API* foram feitas via **JavaScript** através do **AJAX**, utilizando o **JQuery**.
 
-## Code of Conduct
+Além disso, para melhor estilização o **Bootstrap** também foi usado.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Testes
+Foi utilizado o PHPUnit integrado ao laravel. No total tem-se 10 testes (4 unitários e 6 de integração).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Testes Unitários
+Testes realizados sobre a *model User*
 
-## License
+**1** - Verifica as *traits* utilizadas
+**2** - Verifica o conteúdo do atributo *fillable*
+**3** - Verifica se o atributo de incremento é verdadeiro
+**4** - Verifica os *casts* presentes
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Testes de Integração
+Testes realizados sobre a API desenvolvida
+
+**1** - Verifica o retorno da listagem de usuários
+**2** - Verifica, para todos os campos, a validação feita ao salvar um usuário
+**3** - Verifica se o usuário está sendo salvo com sucesso
+**4** - Verifica a validação de nome
+**5** - Verifica a validação de e-mail
+**6** - Verifica a validação de senha
+
+![](public/examples/tests.PNG)
