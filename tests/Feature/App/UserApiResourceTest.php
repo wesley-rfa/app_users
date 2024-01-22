@@ -125,8 +125,6 @@ class UserApiResourceTest extends TestCase
             'passwordConfirmation' => '123456'
         ]);
 
-        $response->dump();
-
         $response->assertStatus(400)->assertJsonStructure([
             'success',
             'data' => [
