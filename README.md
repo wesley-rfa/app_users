@@ -81,5 +81,5 @@ Seguem imagens da interface desenvolvida. Tem-se um menu de navegação lateral 
 
 ## Validação na criação de usuário
 
-![](public/examples/validateStoreUser.PNG)
-![](public/examples/validateStoreUser2.PNG)
+![](public/examples/validateStoreUser.png)
+![](public/examples/validateStoreUser2.png)
