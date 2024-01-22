@@ -79,6 +79,11 @@ Testes realizados sobre a API desenvolvida
 ### Exemplos
 Seguem imagens da interface desenvolvida. Tem-se um menu de navegação lateral fixo.
 
+## Listagem
+Listagem com ações de visualização, edição e exclusão.
+
+![](public/examples/listUsers.PNG)
+
 ## Validação na criação de usuário
 
 ![](public/examples/validateStoreUser.png)
