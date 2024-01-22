@@ -89,6 +89,7 @@ Listagem com ações de ver detalhes, editar e excluir.
 
 ## Edição do usuário
 ![](public/examples/editUsers.PNG)
+![](public/examples/validateUpdateUser.png)
 
 ## Validação na criação de usuário
 
