@@ -75,3 +75,10 @@ Testes realizados sobre a API desenvolvida
 **6** - Verifica a validação de senha
 
 ![](public/examples/tests.PNG)
+
+### Exemplos
+Seguem imagens da interface desenvolvida. Tem-se um menu de navegação lateral fixo.
+
+##Validação na criação de usuário
+![](public/examples/validateStoreUser.PNG)
+![](public/examples/validateStoreUser2.PNG)
