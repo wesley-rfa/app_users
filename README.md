@@ -51,7 +51,7 @@ Feita modificação na migration de *users*, gerada ao iniciar um projeto em lar
 Dessa forma, a model *User*, também gerada de forma padrão ao iniciar o projeto, foi modificada.
 
 ## Front-end
-Para o *front-end* foi utilizado o *blade* nas *views* e explorados tópicos interessantes nesse contexto, como o reaproveitamento de código *html* ao usar as diretivas *@yield*, *@include*, *@extends*, *@section*.
+Para o *front-end* foi utilizado o *blade* nas *views* e explorados tópicos interessantes nesse contexto, como o reaproveitamento de código *html* ao usar as diretivas *@yield*, *@include*, *@extends* e *@section*.
 
 As requisições a *API* foram feitas via **JavaScript** através do **AJAX**, utilizando o **JQuery**.
 
@@ -59,7 +59,7 @@ Além disso, para melhor estilização o **Bootstrap** também foi usado.
 
 
 ## Testes
-Foi utilizado o PHPUnit integrado ao laravel. No total tem-se 10 testes (4 unitários e 6 de integração).
+Foi utilizado o PHPUnit, que já vem integrado ao laravel. No total tem-se 10 testes (4 unitários e 6 de integração).
 
 ### Testes Unitários
 Testes realizados sobre a *model User*
